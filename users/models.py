@@ -12,7 +12,7 @@ class User(AbstractUser):
     name2 = models.ImageField(max_length=20, verbose_name='Фамилия', **NULLABLE)
     name3 = models.CharField(max_length=100, verbose_name='Отчество', **NULLABLE)
 
-    description = models.TextField(verbose_name='Описание')
+    description = models.TextField(verbose_name='Комментарий')
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []

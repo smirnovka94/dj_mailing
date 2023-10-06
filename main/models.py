@@ -12,7 +12,7 @@ class FrequencyMailing(models.Model):
     #     ('MN', 'Ежеминутная'),
     #     ('HR', 'Часовая'),
     #     ('DL', 'Еженедельная'),
-    #     ('WK', 'Еженедельная')
+    #     ('WK', ' Ежемесячно')
     # ]
     frequency = models.CharField(max_length=150,unique=True, verbose_name='периодичность рассылки')
 
@@ -52,15 +52,16 @@ class Mailing(models.Model):
         return f'{self.name}'
 
     class Meta:
-        verbose_name = 'Периодичность рассылки'
-        verbose_name_plural = 'Периодичности рассылки'
+        verbose_name = 'Параметры рассылки'
+        verbose_name_plural = 'Виды рассылок'
 
 class Message(models.Model):
     title = models.CharField(max_length=150, verbose_name='Тема письма')
-    content = models.TextField(verbose_name='Тема письма')
+    content = models.TextField(verbose_name='Содержание письма')
 
 
 class Logs(models.Model):
     data = models.DateField(verbose_name='Дата и время последней попытки')
     satus = models.ForeignKey(StatusMailing, on_delete=models.CASCADE, verbose_name='статус рассылки')
     answer = models.CharField(max_length=150, verbose_name='ответ почтового сервера, если он был')
+
