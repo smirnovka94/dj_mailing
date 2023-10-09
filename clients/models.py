@@ -3,11 +3,11 @@ from datetime import datetime
 
 from django.conf import settings
 
-from main.models import NULLABLE
+NULLABLE = {'blank': True, 'null': True}
 
 
 class Clients(models.Model):
-
+    # mailings = models.ForeignKey(Mailing)#Список рассылок
     email = models.EmailField(unique=True, verbose_name='email')
     name1 = models.CharField(max_length=30, verbose_name='Имя')
     name2 = models.CharField(max_length=30, verbose_name='Фамилия')
