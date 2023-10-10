@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 from main.models import Mailing
 from django.urls import reverse_lazy, reverse
@@ -20,6 +20,17 @@ class MailingCreateView(CreateView):
     fields = '__all__'
     template_name = 'main/main_form.html'
     success_url = reverse_lazy('main:home')
+
+
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        # context_data['name'] = get_object_or_404(Board, pk=[self.kwargs.get('pk')])
+        return context_data
+
+    def form_valid(self, form):
+        obj = form.save()
+        # send_order_email(obj)
+        return super().form_valid(form)
 
 class MailingUpdateView(UpdateView):
     model = Mailing

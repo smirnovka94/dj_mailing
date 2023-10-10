@@ -9,7 +9,12 @@ NULLABLE = {'blank': True, 'null': True}
 
 class FrequencyMailing(models.Model):
     # Аргументы для периодичности расстылки
-
+    TIMES = [
+        ("10S", "раз в 10 секунд"),
+        ("D", "раз в день,"),
+        ("W", "раз в неделю"),
+        ("M", "раз в месяц"),
+    ]
     frequency = models.CharField(max_length=150,unique=True, verbose_name='периодичность рассылки')
 
     def __str__(self):
@@ -22,8 +27,13 @@ class FrequencyMailing(models.Model):
 
 class StatusMailing(models.Model):
     # Аргументы для Статуса рассылок
-    # ВВЕСТИ ДАННЫЕ ПО УМОЛЧАНИЮ (завершена. создана, запущена)
-    name = models.CharField(max_length=150,unique=True, verbose_name='cтатус')
+    STATUSES = [
+        ("Finish", "Завершена"),
+        ("Create", "Создана"),
+        ("Work", "Запущена"),
+    ]
+    name = models.CharField(max_length=150,unique=True, choices=STATUSES,
+        default='Create', verbose_name='cтатус')
 
     def __str__(self):
         return f'{self.name}'
@@ -33,7 +43,7 @@ class StatusMailing(models.Model):
         verbose_name_plural = 'Статусы рассылки'
 
 class Message(models.Model):
-    title = models.CharField(max_length=150, verbose_name='Тема письма')
+    title = models.CharField(max_length=150,unique=True, verbose_name='Тема письма')
     content = models.TextField(verbose_name='Содержание письма')
 
 class Mailing(models.Model):
@@ -41,13 +51,13 @@ class Mailing(models.Model):
 
     frequency = models.ForeignKey(FrequencyMailing,on_delete=models.CASCADE, verbose_name='Периодичность рассылки')
     clients = models.ManyToManyField(Clients, verbose_name='Список получателей')
-    massage = models.ForeignKey(Message,on_delete=models.CASCADE, verbose_name='Сообщение')
+    message = models.ForeignKey(Message,on_delete=models.CASCADE, verbose_name='Сообщение')
 
-    begin_data = models.DateTimeField(verbose_name='Дата начала рассылки', **NULLABLE)
-    close_data = models.DateTimeField(verbose_name='Дата прекращения рассылки', **NULLABLE)
+    begin_date = models.DateTimeField(verbose_name='Дата начала рассылки', **NULLABLE)
+    close_date = models.DateTimeField(verbose_name='Дата прекращения рассылки', **NULLABLE)
 
     # data = models.ForeignKey(Logs, verbose_name='дата отправки')
-    satus = models.ForeignKey(StatusMailing,on_delete=models.CASCADE, default='0000000', verbose_name='Cтатус рассылки')
+    satus = models.ForeignKey(StatusMailing,on_delete=models.CASCADE, default='Create', verbose_name='Cтатус рассылки')
     # owner = models.ForeignKey(User
     def __str__(self):
         return f'{self.name}'
