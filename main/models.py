@@ -15,7 +15,7 @@ class FrequencyMailing(models.Model):
         ("W", "раз в неделю"),
         ("M", "раз в месяц"),
     ]
-    frequency = models.CharField(max_length=150,unique=True, verbose_name='периодичность рассылки')
+    frequency = models.CharField(max_length=150,unique=True, choices=TIMES, verbose_name='периодичность рассылки')
 
     def __str__(self):
         return f'{self.frequency}'
@@ -46,6 +46,7 @@ class Message(models.Model):
     title = models.CharField(max_length=150,unique=True, verbose_name='Тема письма')
     content = models.TextField(verbose_name='Содержание письма')
 
+
 class Mailing(models.Model):
     name = models.CharField(max_length=150,unique=True, verbose_name='Название рассылки')
 
@@ -65,6 +66,7 @@ class Mailing(models.Model):
     class Meta:
         verbose_name = 'Параметры рассылки'
         verbose_name_plural = 'Виды рассылок'
+
 
 
 

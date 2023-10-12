@@ -9,14 +9,13 @@ from django_apscheduler.jobstores import DjangoJobStore
 from django_apscheduler.models import DjangoJobExecution
 from django_apscheduler import util
 
-from main.services import send_mail
+from main.models import Mailing
+from main.services import my_job
 
 logger = logging.getLogger(__name__)
 
 
-def my_job():
-    # Your job processing logic here...
-    pass
+
 
 
 # The `close_old_connections` decorator ensures that database connections, that have become
@@ -43,22 +42,14 @@ class Command(BaseCommand):
         scheduler.add_jobstore(DjangoJobStore(), "default")
 
         scheduler.add_job(
-            send_mail,
-            kwargs={"email": "kiril@mail.ru"},
+            my_job,
+            # kwargs={"email": "kiril@mail.ru"},
             trigger=CronTrigger(second="*/5"),  # Every 5 seconds
             id="kirill@mail",  # The `id` assigned to each job MUST be unique
             max_instances=1,
             replace_existing=True,
         )
         # logger.info("Added job 'my_job'.")
-        scheduler.add_job(
-            send_mail,
-            kwargs={"email": "katya@mail.ru"},
-            trigger=CronTrigger(second="*/5"),  # Every 5 seconds
-            id="katya@mail",  # The `id` assigned to each job MUST be unique
-            max_instances=1,
-            replace_existing=True,
-        )
 
         scheduler.add_job(
             delete_old_job_executions,

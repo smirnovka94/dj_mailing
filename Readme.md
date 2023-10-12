@@ -34,9 +34,16 @@ localhost:5432:shop_internet:postgres:<password>
 ```
 python manage.py loaddata data.json
 ```
-### Установка и использование
-Установленный superuser
-login:
-password:
+Создаем superuser
+login: kirill@sky.pro
+password: qwerty88
+```
+python manage.py super_user
+```
+Запускаем планировщик задач
+```
+python manage.py runapscheduler 
+```
+
 ## Описание файлов
 
