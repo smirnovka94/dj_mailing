@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'users'
 ]
 
+SCHEDULER_AUTOSTART = True
+
 # APSCHEDULER_DATETIME_FORMAT = "N j, Y, f:s a"
 
 MIDDLEWARE = [
@@ -162,7 +164,7 @@ CACHE_ENABLED = os.getenv('CACHE_ENABLED') == 'True'
 
 EMAIL_HOST = 'smtp.yandex.com'
 EMAIL_PORT = 465
-EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+EMAIL_HOST_USER = "fuckup@oscarbot.ru"#os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = "AsTSNVv7pun9" #os.getenv('EMAIL_HOST_PASSWORD')
 EMAIL_USE_SSL = True
 

@@ -44,7 +44,7 @@ class Command(BaseCommand):
         scheduler.add_job(
             my_job,
             # kwargs={"email": "kiril@mail.ru"},
-            trigger=CronTrigger(second="*/5"),  # Every 5 seconds
+            trigger=CronTrigger(second="*/20"),  # Every 5 seconds
             id="kirill@mail",  # The `id` assigned to each job MUST be unique
             max_instances=1,
             replace_existing=True,

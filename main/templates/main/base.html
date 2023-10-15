@@ -13,6 +13,7 @@
             <a class="p-2 btn btn-outline-primary" href="{% url 'main:home' %}">Главная</a>
             <a class="btn btn-outline-primary" href="{% url 'main:create' %}">Добавить рассылку</a>
             <a class="p-2 btn btn-outline-primary" href="{% url 'clients:list' %}">Список клиентов</a>
+            <a class="p-2 btn btn-outline-primary" href="{% url 'main:log_list' %}">Логи</a>
             {% if user.is_authenticated %}
                 <a class="p-2 btn btn-outline-primary" href="{% url 'users:logout' %}">Выход</a>
             {% else %}

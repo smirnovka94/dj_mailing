@@ -1,17 +1,12 @@
 from django.contrib import admin
 
-from main.models import FrequencyMailing, StatusMailing, Mailing, Message, Logs
+from main.management.commands.runapscheduler import Command
+from main.models import FrequencyMailing, Mailing, Message, Logs
 
 
 @admin.register(FrequencyMailing)
 class FrequencyMailingAdmin(admin.ModelAdmin):
     list_display = ('pk', 'frequency',)
-
-
-
-@admin.register(StatusMailing)
-class StatusMailingAdmin(admin.ModelAdmin):
-    list_display = ('pk', 'name')
 
 
 @admin.register(Mailing)
@@ -21,10 +16,5 @@ class MailingAdmin(admin.ModelAdmin):
 
 @admin.register(Message)
 class MessageAdmin(admin.ModelAdmin):
-    list_display = ('pk', 'title', 'content')
+    list_display = ('title', 'content',)
 
-
-@admin.register(Logs)
-class ProductAdmin(admin.ModelAdmin):
-    list_display = ('pk', 'data', 'satus', 'answer')
-    list_filter = ('answer', 'satus')

@@ -31,15 +31,7 @@ class RegisterView(CreateView):
 
     def form_valid(self, form):
         self.object = form.save()
-        verification_link = "http://127.0.0.1:8000/users/register/users/verification/"
 
-        # send_mail(
-        #     subject='Поздравляем с регистрацией',
-        #     message=f'Для завершения регистрации перейдите по ссылке: {verification_link} \n'
-        #             f'Для прохождения верификации скопируйте ключ: {_key}',
-        #     from_email=settings.EMAIL_HOST_USER,
-        #     recipient_list=[self.object.email]
-        # )
         return super().form_valid(form)
 
 
