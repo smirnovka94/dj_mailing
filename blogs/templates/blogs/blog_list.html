@@ -18,8 +18,10 @@
                             <li>Просмотров: {{object.count_view}}</li>
                         </ul>
                         <a href="{% url 'blogs:view' slug=object.slug %}" class="btn btn-lg btn-block btn-outline-primary">Перейти</a>
-                        <a href="{% url 'blogs:edit' slug=object.slug %}" class="btn btn-lg btn-block btn-outline-primary">Изменить</a>
-                        <a href="{% url 'blogs:delete' slug=object.slug %}" class="btn btn-lg btn-block btn-outline-primary">Удалить</a>
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'blogs:edit' slug=object.slug %}" class="btn btn-lg btn-block btn-outline-primary">Изменить</a>
+                            <a href="{% url 'blogs:delete' slug=object.slug %}" class="btn btn-lg btn-block btn-outline-primary">Удалить</a>
+                        {% endif %}
                     </div>
                 </div>
             </div>

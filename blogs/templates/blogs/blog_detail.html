@@ -1,5 +1,5 @@
 {% extends 'main/base.html' %}
-}
+{% load my_tags %}
 {% block content %}
     <div class="row text-center">
 
@@ -13,6 +13,10 @@
                 <ul class="list-unstyled mt-3 mb-4 text-start m-3">
                     <li>{{object.create_data}}</li>
                     <li>{{object.is_published}}</li>
+                </ul>
+                <img class="card-img-top"
+                    src="{{ object.image|mymedia }}"
+                    alt="Card image cap">
                 </ul>
                 <div class="card-footer">
                     Просмотры: {{ object.count_view }}

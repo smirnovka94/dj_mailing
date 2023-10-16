@@ -11,7 +11,7 @@ class FrequencyMailingAdmin(admin.ModelAdmin):
 
 @admin.register(Mailing)
 class MailingAdmin(admin.ModelAdmin):
-    list_display = ('pk', 'name', 'frequency', 'satus')
+    list_display = ('pk', 'name', 'frequency', 'satus', 'user')
     list_filter = ('frequency', 'satus')
 
 @admin.register(Message)
