@@ -57,6 +57,10 @@ class Mailing(models.Model):
     class Meta:
         verbose_name = 'Параметры рассылки'
         verbose_name_plural = 'Виды рассылок'
+        permissions = [
+            ('can_change_mailing', 'Can_change_product_active'),
+        ]
+
 
 
 

@@ -4,7 +4,7 @@ from django.contrib.auth.views import LogoutView as BaseLogoutView
 from django.core.mail import send_mail
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy, reverse
-from django.views.generic import CreateView, FormView, UpdateView
+from django.views.generic import CreateView, FormView, UpdateView, ListView
 from users.forms import UserForm, VerificationForm, ChangeForm_User
 from users.models import User
 import random
@@ -61,3 +61,14 @@ def send_new_password(request):
     request.user.set_password(_key)
     request.user.save()
     return redirect(reverse('main:home'))
+
+class UserListView(ListView):
+    model = User
+    template_name = 'users/user_list.html'
+    fields = "__all__"
+
+
+class UserUpdateViewFromList(UpdateView):
+    model = User
+    fields = "__all__"
+    template_name = 'users/user_form.html'

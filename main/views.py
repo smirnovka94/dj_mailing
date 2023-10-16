@@ -1,5 +1,7 @@
 import random
 
+from django.contrib.auth.decorators import permission_required
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.shortcuts import render, get_object_or_404
 from apscheduler.schedulers.blocking import BlockingScheduler
 
@@ -13,7 +15,7 @@ from django.views.generic import CreateView, ListView, DetailView, UpdateView, D
 from pytils.translit import slugify
 
 
-
+# @permission_required('main.view_mailing')
 def home(request):
     context = {
         'mailing_list': Mailing.objects.all(),
@@ -25,31 +27,29 @@ def home(request):
     }
     return render(request, 'main/home.html', context)
 
-class MailingCreateView(CreateView):
+class MailingCreateView(PermissionRequiredMixin, CreateView):
     model = Mailing
-    fields = '__all__'
-    # form_class = MailingForm
+    # fields = '__all__'
+    form_class = MailingForm
     template_name = 'main/main_form.html'
     success_url = reverse_lazy('main:home')
-
+    permission_required = 'main.add_mailing'
 
     # def get_form_kwargs(self):
     #     kwargs = super(MailingCreateView, self).get_form_kwargs()
-    #     kwargs['user'] = self.request.user
+    #     kwargs['user'] = self.request.user.email
     #     return kwargs
 
     def form_valid(self, form):
-        if form.is_valid():
-            new_mail = form.save()
-            new_mail.slug = slugify(new_mail.name)
-            new_mail.save()
+        form.instance.user = self.request.user
         return super().form_valid(form)
 
 
-class MailingUpdateView(UpdateView):
+class MailingUpdateView(PermissionRequiredMixin, UpdateView):
     model = Mailing
     form_class = MailingForm
     template_name = 'main/main_form.html'
+    permission_required = 'main.change_mailing'
 
     def form_valid(self, form):
         if form.is_valid():
@@ -82,7 +82,8 @@ class MailingDetailView(DetailView):
     template_name = 'main/main_detail.html'
     fields = '__all__'
 
-class MailingDeleteView(DeleteView):
+class MailingDeleteView(PermissionRequiredMixin, DeleteView):
     model = Mailing
     template_name = 'main/main_confirm_delete.html'
     success_url = reverse_lazy('main:home')
+    permission_required = 'main.delete_mailing'

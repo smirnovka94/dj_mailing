@@ -25,8 +25,13 @@ class StyleForDateTimeInput(forms.ModelForm):
             }
         )
 
-class MailingForm(StyleForDateTimeInput, forms.ModelForm):
+class MailingForm(forms.ModelForm):
+    #
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
     class Meta:
         model = Mailing
-        fields = '__all__'
+        exclude = ('user',)
+        # fields = '__all__'

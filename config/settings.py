@@ -49,7 +49,9 @@ INSTALLED_APPS = [
 
 SCHEDULER_AUTOSTART = True
 
-# APSCHEDULER_DATETIME_FORMAT = "N j, Y, f:s a"
+CRONJOBS = [
+    ('*/1 * * * *', 'catalog.utils.my_scheduled_job')
+]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -153,6 +155,14 @@ AUTH_USER_MODEL = 'users.User'
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+LOGIN_URL = '/users/'
+
+EMAIL_HOST = 'smtp.yandex.com'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = "fuckup@oscarbot.ru"#os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = "AsTSNVv7pun9" #os.getenv('EMAIL_HOST_PASSWORD')
+EMAIL_USE_SSL = True
+
 
 CACHE_ENABLED = os.getenv('CACHE_ENABLED') == 'True'
 
@@ -162,10 +172,6 @@ CACHE_ENABLED = os.getenv('CACHE_ENABLED') == 'True'
 #         "LOCATION": os.getenv('CACHE_LOCATION') ,
 #     }
 # }
-
-EMAIL_HOST = 'smtp.yandex.com'
-EMAIL_PORT = 465
-EMAIL_HOST_USER = "fuckup@oscarbot.ru"#os.getenv('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = "AsTSNVv7pun9" #os.getenv('EMAIL_HOST_PASSWORD')
-EMAIL_USE_SSL = True
-
+# CACHE_MIDDLEWARE_ALIAS = 'default'
+# CACHE_MIDDLEWARE_SECONDS = 60
+# CACHE_MIDDLEWARE_KEY_PREFIX = ''

@@ -8,7 +8,7 @@ class UserForm (StyleForMixin, UserCreationForm):
 
     class Meta:
         model = User
-        fields = ('email', 'password1', 'password2')
+        fields = ('email', 'user_status', 'password1', 'password2')
 
 class VerificationForm(forms.Form):
     key = forms.CharField()
@@ -18,7 +18,7 @@ class ChangeForm_User(StyleForMixin, UserChangeForm):
 
     class Meta:
         model = User
-        fields = ('email', 'password', 'name1')
+        fields = ('email', 'user_status', 'password', 'name1')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

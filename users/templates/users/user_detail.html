@@ -14,9 +14,7 @@
                 </ul>
                 <div class="card-body">
                     <a type="button" class="btn btn-lg btn-block btn-outline-primary" href={% url 'main:home' %} >Вернуться</a>
-                    {% if perms.main.delete_mailing %}
-                    <a type="button" class="btn btn-lg btn-block btn-outline-primary" href="{% url 'main:delete' pk=object.pk %}">Удалить</a>
-                    {% endif %}
+                    <a type="button" class="btn btn-lg btn-block btn-outline-primary" href="{% url 'main:edit' pk=object.pk %}">Изменить</a>
                 </div>
             </div>
         </div>

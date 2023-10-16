@@ -23,7 +23,9 @@
                 </div>
                 <div class="card-body">
                     <a type="button" class="btn btn-lg btn-block btn-outline-primary" href="{% url 'blogs:list' %}">Вернуться</a>
-                    <a type="button" class="btn btn-lg btn-block btn-outline-primary" href="{% url 'blogs:delete' slug=object.slug %}">Удалить</a>
+                    {% if user.is_authenticated %}
+                        <a type="button" class="btn btn-lg btn-block btn-outline-primary" href="{% url 'blogs:delete' slug=object.slug %}">Удалить</a>
+                    {% endif %}
                 </div>
             </div>
         </div>
