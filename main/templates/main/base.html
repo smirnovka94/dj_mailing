@@ -21,6 +21,7 @@
                 <a class="p-2 btn btn-outline-primary" href="{% url 'users:list' %}">Список пользователей</a>
                 <a class="p-2 btn btn-outline-primary" href="{% url 'main:list' %}">Список рассылок</a>
                 <a class="p-2 btn btn-outline-primary" href="{% url 'clients:list' %}">Список клиентов</a>
+                <a class="btn btn-outline-primary" href="{% url 'main:message_list' %}">Список шаблонов писем</a>
                 <a class="p-2 btn btn-outline-primary" href="{% url 'users:logout' %}">Выход</a>
                 <a class="p-2 btn btn-outline-primary" href="{% url 'main:log_list' %}">Логи</a>
             {% else %}

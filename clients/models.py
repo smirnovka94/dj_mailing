@@ -3,6 +3,8 @@ from datetime import datetime
 
 from django.conf import settings
 
+from users.models import User
+
 NULLABLE = {'blank': True, 'null': True}
 
 
@@ -14,6 +16,8 @@ class Clients(models.Model):
     name3 = models.CharField(max_length=30, verbose_name='Отчество', **NULLABLE)
 
     description = models.TextField(verbose_name='Комментарий', **NULLABLE)
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, verbose_name='пользователь')
     def __str__(self):
         return f'{self.email} ({self.name1} {self.name2})'
 

@@ -9,7 +9,7 @@ from blogs.models import Blog
 from clients.models import Clients
 from main.forms import MailingForm
 
-from main.models import Mailing, Logs
+from main.models import Mailing, Logs, Message
 from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
 from pytils.translit import slugify
@@ -35,10 +35,6 @@ class MailingCreateView(PermissionRequiredMixin, CreateView):
     success_url = reverse_lazy('main:home')
     permission_required = 'main.add_mailing'
 
-    # def get_form_kwargs(self):
-    #     kwargs = super(MailingCreateView, self).get_form_kwargs()
-    #     kwargs['user'] = self.request.user.email
-    #     return kwargs
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -52,10 +48,9 @@ class MailingUpdateView(PermissionRequiredMixin, UpdateView):
     permission_required = 'main.change_mailing'
 
     def form_valid(self, form):
-        if form.is_valid():
-            new_mail = form.save()
-            new_mail.slug = slugify(new_mail.name)
-            new_mail.save()
+        new_user = form.save()
+        new_user.save()
+        form.instance.user = self.request.user
         return super().form_valid(form)
 
     def get_success_url(self):
@@ -66,6 +61,8 @@ class MailingListView(ListView):
     template_name = 'main/main_list.html'
     fields = ('name', 'frequency', 'satus',)
 
+    def get_queryset(self):
+        return super().get_queryset().filter(user=self.request.user)
 
 class LogListView(ListView):
     model = Logs
@@ -87,3 +84,27 @@ class MailingDeleteView(PermissionRequiredMixin, DeleteView):
     template_name = 'main/main_confirm_delete.html'
     success_url = reverse_lazy('main:home')
     permission_required = 'main.delete_mailing'
+
+# CRUD ДЛЯ Message
+class MessageCreateView(CreateView):
+    model = Message
+    fields = '__all__'
+
+    template_name = 'main/message_form.html'
+    success_url = reverse_lazy('main:home')
+    permission_required = 'main.add_message'
+class MessageListView(ListView):
+    model = Message
+    template_name = 'main/message_list.html'
+    fields = '__all__'
+
+class  MessageUpdateView(UpdateView):
+    model = Message
+    template_name = 'main/message_form.html'
+    fields = '__all__'
+
+class MessageDeleteView(PermissionRequiredMixin, DeleteView):
+    model = Message
+    template_name = 'main/message_confirm_delete.html'
+    success_url = reverse_lazy('main:home')
+    permission_required = 'main.delete_message'
