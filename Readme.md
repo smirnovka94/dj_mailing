@@ -23,8 +23,6 @@ pip install -r requirements.txt
 ```
 
 Создаем базу данных в PgAdmin с именем <mailing>
-
-Создаем файл .pgpass???
 чтобы указать в нем пароль от Postgres вконце
 ```
 localhost:5432:shop_internet:postgres:<password>
@@ -32,7 +30,10 @@ localhost:5432:shop_internet:postgres:<password>
 Создаем файл<.env>
 Загрузить базу данных
 ```
-python manage.py loaddata data.json
+python manage.py loaddata b_data.json
+python manage.py loaddata c_data.json
+python manage.py loaddata m_data.json
+python manage.py loaddata u_data.json
 ```
 Создаем superuser
 login: kirill@sky.pro
@@ -44,6 +45,4 @@ python manage.py super_user
 ```
 python manage.py runapscheduler 
 ```
-
-## Описание файлов
 
