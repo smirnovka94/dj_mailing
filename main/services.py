@@ -2,36 +2,11 @@ from django.conf import settings
 
 from main.models import Mailing, Logs
 from datetime import datetime, timedelta
-import calendar
+
 from django.core.mail import send_mail
 
 
 list_Mailing = Mailing.objects.all()
-
-def update_mailing_begin_date(mailing_id, new_begin_date):
-    """Обновляем данные begin_date Mailing"""
-    try:
-        mailing = Mailing.objects.get(id=mailing_id)
-        mailing.begin_date = new_begin_date
-        mailing.begin_date = new_begin_date
-        mailing.save()
-        return True
-    except Mailing.DoesNotExist:
-        return False
-
-
-def update_mailing_satus(mailing_id, new_satus):
-    """Обновляем данные satus Mailing"""
-    try:
-        mailing = Mailing.objects.get(id=mailing_id)
-        mailing.satus = "Finish"
-        print("Меняем статус на Finish")
-        mailing.save()
-        return True
-    except Mailing.DoesNotExist:
-        print("Меняем статус не получилось")
-        return False
-
 
 def if_begin(time_):
     """Обработка времени начала рассылки"""
@@ -53,33 +28,6 @@ def if_finish(time_):
     else:
         return date_time_finish
 
-def time_rigth(mailing_id, time_now, time_obj):
-    """
-    Проверка временных границ
-    """
-    date_time_begin = if_begin(time_obj.begin_date) # Дата начала рассылки
-    date_time_finish = if_finish(time_obj.close_date) # Дата окончания рассылки
-
-    time_start = datetime.fromisoformat(date_time_begin).timestamp()
-    date_time_now = time_now.timestamp()
-    time_finish = datetime.fromisoformat(date_time_finish).timestamp()
-
-    if time_start <= date_time_now <= time_finish:
-        # print("Печатаем", date_time_begin, '<=', time_now.strftime("%Y-%m-%d %H:%M:%S"), '<=', date_time_finish)
-        return True
-    elif date_time_now > time_finish:
-
-        mailing = Mailing.objects.get(id=mailing_id)
-        mailing.satus = "Finish"
-        print("Меняем статус на Finish")
-        mailing.save()
-
-        # update_mailing_satus(mailing_id, "Finish")
-        return False
-    else:
-        # print("НЕ Печатаем", date_time_begin, '<=', time_now.strftime("%Y-%m-%d %H:%M:%S"), '<=', date_time_finish)
-        return False
-
 
 
 def update_time_Mailing(obj):
@@ -97,21 +45,15 @@ def update_time_Mailing(obj):
         new_datetime = obj.begin_date + timedelta(days=30)
         # obj.begin_date = new_datetime
     return new_datetime
-    # print(f"{obj.begin_date} Изменена на - {new_datetime}")
-    # update_mailing_begin_date(mailing_id, new_datetime)
+
 
 
 def my_job():
     """
     Основное тело цикла
     """
-
     now = datetime.now()
 
-#
-    # Stat = StatusMailing.objects.get(id=2)
-    # mailing = Stat.mailing_set.all()
-    # print(mailing)
 
     for i, element in enumerate(list_Mailing):
         id_element = Mailing.objects.values_list('id', flat=True)[i]#pk рассылки
@@ -126,8 +68,8 @@ def my_job():
 
         print(element.name)
         if time_start <= date_time_now <= time_finish:
-            element.satus = "Work"
 
+            element.satus = "Work"
             # Обновляем время begin_date + frequency в Mailing
             new_date_time = update_time_Mailing(element)
             element.begin_date = new_date_time
@@ -148,7 +90,6 @@ def my_job():
                 Logs.objects.create(status=element.satus, answer="Отправлено")
             element.save()
             print(f"{element.name}, {client.email}, {element.satus }-изм статус на Work")
-
 
 
         elif date_time_now > time_finish:

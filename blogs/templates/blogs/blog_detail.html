@@ -1,0 +1,29 @@
+{% extends 'main/base.html' %}
+}
+{% block content %}
+    <div class="row text-center">
+
+        <div class="col-12">
+            <div class="card mb-4 box-shadow">
+                <div class="card-header">
+                    <h2 class="my-0 font-weight-normal">{{object.title}} ({{ object.slug }})</h2>
+                    <h4 class="my-0 font-weight-normal">{{object.content}}</h4>
+                </div>
+
+                <ul class="list-unstyled mt-3 mb-4 text-start m-3">
+                    <li>{{object.create_data}}</li>
+                    <li>{{object.is_published}}</li>
+                </ul>
+                <div class="card-footer">
+                    Просмотры: {{ object.count_view }}
+                </div>
+                <div class="card-body">
+                    <a type="button" class="btn btn-lg btn-block btn-outline-primary" href="{% url 'blogs:list' %}">Вернуться</a>
+                    <a type="button" class="btn btn-lg btn-block btn-outline-primary" href="{% url 'blogs:delete' slug=object.slug %}">Удалить</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}

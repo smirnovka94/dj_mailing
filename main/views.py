@@ -1,24 +1,29 @@
+import random
+
 from django.shortcuts import render, get_object_or_404
 from apscheduler.schedulers.blocking import BlockingScheduler
+
+from blogs.models import Blog
+from clients.models import Clients
 from main.forms import MailingForm
-from main.management.commands.runapscheduler import Command
+
 from main.models import Mailing, Logs
 from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
 from pytils.translit import slugify
 
-from main.services import my_job
 
 
 def home(request):
     context = {
-        'object_list': Mailing.objects.all(),
-        'title': 'Пользователь',
-        'title_comments': 'Skystore - это отличный вариант выбора товара на любой вкус!'
+        'mailing_list': Mailing.objects.all(),
+        'active_mailing_list': Mailing.objects.all().filter(satus='Work'),
+        'unique_emails': Clients.objects.all().values('email').distinct(),
+        'blogs_list': random.sample(list(Blog.objects.all()), k=3),
+        'title': 'Mailing service',
+
     }
     return render(request, 'main/home.html', context)
-
-
 
 class MailingCreateView(CreateView):
     model = Mailing
@@ -58,7 +63,7 @@ class MailingUpdateView(UpdateView):
 
 class MailingListView(ListView):
     model = Mailing
-    template_name = 'main/home.html'
+    template_name = 'main/main_list.html'
     fields = ('name', 'frequency', 'satus',)
 
 

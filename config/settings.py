@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'main',
     'clients',
     'django_apscheduler',
-    'users'
+    'users',
+    'blogs'
 ]
 
 SCHEDULER_AUTOSTART = True
