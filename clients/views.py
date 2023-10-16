@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
 from pytils.translit import slugify
+from clients.services import get_cache_clients
 
 from clients.forms import ClientsForm
 from clients.models import Clients
@@ -34,6 +35,13 @@ class ClientListView(ListView):
 
     def get_queryset(self):
         return super().get_queryset().filter(user=self.request.user)
+
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        get_cache_clients(self)
+        context_data['clients'] = get_cache_clients(self)
+        return context_data
+
 class ClientDetailView(DetailView):
     model = Clients
     form_class = ClientsForm

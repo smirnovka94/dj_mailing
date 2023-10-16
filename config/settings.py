@@ -166,12 +166,12 @@ EMAIL_USE_SSL = True
 
 CACHE_ENABLED = os.getenv('CACHE_ENABLED') == 'True'
 
-# CACHES = {
-#     "default": {
-#         "BACKEND": "django.core.cache.backends.redis.RedisCache",
-#         "LOCATION": os.getenv('CACHE_LOCATION') ,
-#     }
-# }
-# CACHE_MIDDLEWARE_ALIAS = 'default'
-# CACHE_MIDDLEWARE_SECONDS = 60
-# CACHE_MIDDLEWARE_KEY_PREFIX = ''
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.redis.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379",
+    }
+}
+CACHE_MIDDLEWARE_ALIAS = 'default'
+CACHE_MIDDLEWARE_SECONDS = 60
+CACHE_MIDDLEWARE_KEY_PREFIX = ''

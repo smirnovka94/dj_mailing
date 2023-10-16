@@ -68,11 +68,7 @@ class LogListView(ListView):
     model = Logs
     template_name = 'main/log_list.html'
 
-    # def get_queryset(self):
-    #    if self.request.user.is_staff:
-    #        return Logs.objects.all()
-    #    queryset = Logs.objects.filter(mailing__user = self.request.user)
-    #    return queryset
+
 
 class MailingDetailView(DetailView):
     model = Mailing

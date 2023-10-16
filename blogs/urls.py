@@ -1,4 +1,5 @@
 from django.urls import path
+from django.views.decorators.cache import cache_page
 
 from blogs.apps import BlogsConfig
 from blogs.views import BlogCreateView, BlogListView, BlogDetailView, BlogUpdateView, BlogDeleteView
@@ -6,7 +7,7 @@ from blogs.views import BlogCreateView, BlogListView, BlogDetailView, BlogUpdate
 app_name = BlogsConfig.name
 
 urlpatterns = [
-    path('create/', BlogCreateView.as_view(), name='create'),
+    path('create/', cache_page(60)(BlogCreateView.as_view()), name='create'),
     path('list/', BlogListView.as_view(), name='list'),
     path('view/<slug:slug>/', BlogDetailView.as_view(), name='view'),
     path('edit/<slug:slug>/', BlogUpdateView.as_view(), name='edit'),

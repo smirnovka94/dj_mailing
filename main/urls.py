@@ -8,7 +8,7 @@ from main.views import home, MailingListView, MailingCreateView, MailingDetailVi
 app_name = MainConfig.name
 
 urlpatterns = [
-    path('', home, name='home'),
+    path('', cache_page(60)(home), name='home'),
     path('list', MailingListView.as_view(), name='list'),
     path('create/', MailingCreateView.as_view(), name='create'),
     path('view/<int:pk>/', MailingDetailView.as_view(), name='view'),
