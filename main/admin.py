@@ -1,7 +1,7 @@
 from django.contrib import admin
 
-from main.management.commands.runapscheduler import Command
-from main.models import FrequencyMailing, Mailing, Message, Logs
+
+from main.models import FrequencyMailing, Mailing, Message
 
 
 @admin.register(FrequencyMailing)

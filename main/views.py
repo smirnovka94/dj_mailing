@@ -1,9 +1,8 @@
 import random
 
-from django.contrib.auth.decorators import permission_required
+
 from django.contrib.auth.mixins import PermissionRequiredMixin
-from django.shortcuts import render, get_object_or_404
-from apscheduler.schedulers.blocking import BlockingScheduler
+from django.shortcuts import render
 
 from blogs.models import Blog
 from clients.models import Clients
@@ -12,10 +11,7 @@ from main.forms import MailingForm
 from main.models import Mailing, Logs, Message
 from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
-from pytils.translit import slugify
 
-
-# @permission_required('main.view_mailing')
 def home(request):
 
     context = {
@@ -82,7 +78,6 @@ class MailingDeleteView(PermissionRequiredMixin, DeleteView):
     success_url = reverse_lazy('main:home')
     permission_required = 'main.delete_mailing'
 
-# CRUD ДЛЯ Message
 class MessageCreateView(CreateView):
     model = Message
     fields = '__all__'

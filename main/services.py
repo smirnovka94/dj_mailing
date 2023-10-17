@@ -31,18 +31,14 @@ def if_finish(time_):
 
 def update_time_Mailing(obj):
     """Вычисляем время begin_date + frequency в Mailing"""
-
     if str(obj.frequency) == "10S":
         new_datetime = obj.begin_date + timedelta(seconds=120)
     elif str(obj.frequency) == "Daily":
         new_datetime = obj.begin_date + timedelta(days=1)
-        # obj.begin_date = new_datetime
     elif str(obj.frequency) == "Weekly":
         new_datetime = obj.begin_date + timedelta(days=7)
-        # obj.begin_date = new_datetime
-    else:# str(obj.frequency) == "Monthly":
+    else:
         new_datetime = obj.begin_date + timedelta(days=30)
-        # obj.begin_date = new_datetime
     return new_datetime
 
 
