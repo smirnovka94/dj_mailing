@@ -66,6 +66,7 @@ class UserListView(ListView):
     model = User
     template_name = 'users/user_list.html'
     fields = "__all__"
+    permission_required = 'users.view_user'
 
 
 class UserUpdateViewFromList(UpdateView):

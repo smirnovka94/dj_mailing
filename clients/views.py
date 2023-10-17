@@ -11,6 +11,7 @@ class ClientCreateView(CreateView):
     model = Clients
     form_class = ClientsForm
     success_url = reverse_lazy('clients:list')
+    permission_required = 'clients.add_client'
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -19,6 +20,7 @@ class ClientCreateView(CreateView):
 class ClientUpdateView(UpdateView):
     model = Clients
     form_class = ClientsForm
+    permission_required = 'clients.change_client'
 
     def form_valid(self, form):
         new_user = form.save()
@@ -49,3 +51,4 @@ class ClientDetailView(DetailView):
 class ClientDeleteView(DeleteView):
     model = Clients
     success_url = reverse_lazy('clients:list')
+    permission_required = 'clients.delete_client'

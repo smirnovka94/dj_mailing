@@ -9,7 +9,7 @@ NULLABLE = {'blank': True, 'null': True}
 
 
 class Clients(models.Model):
-    # mailings = models.ForeignKey(Mailing)#Список рассылок
+
     email = models.EmailField(unique=True, verbose_name='email')
     first_name = models.CharField(max_length=30, verbose_name='Имя')
     last_name = models.CharField(max_length=30, verbose_name='Фамилия')

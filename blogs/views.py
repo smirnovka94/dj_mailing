@@ -23,7 +23,7 @@ class BlogCreateView(CreateView):
 class BlogUpdateView(UpdateView):
     model = Blog
     fields = ('title', 'content',)
-    # success_url = reverse_lazy('blogs:create')
+
 
     def form_valid(self, form):
         if form.is_valid():
@@ -41,8 +41,8 @@ class BlogListView(ListView):
     def get_queryset(self, *args, **kwargs):
         queryset = super().get_queryset(*args, **kwargs)
         queryset = queryset.filter(is_published=True)
-        # random.shuffle(queryset)
         return queryset
+
 class BlogDetailView(DetailView):
     model = Blog
 

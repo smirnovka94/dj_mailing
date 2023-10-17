@@ -8,7 +8,7 @@ class UserForm (StyleForMixin, UserCreationForm):
 
     class Meta:
         model = User
-        fields = ('email', 'password1', 'password2')
+        fields = ('email', 'password1', 'password2', 'groups')
 
 class VerificationForm(forms.Form):
     key = forms.CharField()

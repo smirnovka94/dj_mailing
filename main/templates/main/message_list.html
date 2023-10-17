@@ -17,10 +17,10 @@
                         </ul>
                         <a href="{% url 'main:view' pk=object.pk %}" class="btn btn-lg btn-block btn-outline-primary">Перейти</a>
                         {% if perms.main.change_message %}
-                        <a href="{% url 'main:edit' pk=object.pk %}" class="btn btn-lg btn-block btn-outline-primary">Изменить</a>
+                            <a href="{% url 'main:edit' pk=object.pk %}" class="btn btn-lg btn-block btn-outline-primary">Изменить</a>
                         {% endif %}
                         {% if perms.main.delete_message %}
-                        <a href="{% url 'main:delete' pk=object.pk %}" class="btn btn-lg btn-block btn-outline-primary">Удалить</a>
+                            <a href="{% url 'main:delete' pk=object.pk %}" class="btn btn-lg btn-block btn-outline-primary">Удалить</a>
                         {% endif %}
                     </div>
                 </div>

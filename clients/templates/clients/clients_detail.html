@@ -15,7 +15,9 @@
                 </ul>
                 <div class="card-body">
                     <a type="button" class="btn btn-lg btn-block btn-outline-primary" href={% url 'clients:list' %} >Вернуться</a>
-                    <a type="button" class="btn btn-lg btn-block btn-outline-primary" href="{% url 'clients:delete' pk=object.pk %}">Удалить</a>
+                    {% if perms.clients.delete_client %}
+                        <a type="button" class="btn btn-lg btn-block btn-outline-primary" href="{% url 'clients:delete' pk=object.pk %}">Удалить</a>
+                    {% endif %}
                 </div>
             </div>
         </div>

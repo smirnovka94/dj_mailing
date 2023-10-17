@@ -17,19 +17,20 @@ from pytils.translit import slugify
 
 # @permission_required('main.view_mailing')
 def home(request):
+
     context = {
         'mailing_list': Mailing.objects.all(),
         'active_mailing_list': Mailing.objects.all().filter(satus='Work'),
         'unique_emails': Clients.objects.all().values('email').distinct(),
         'blogs_list': random.sample(list(Blog.objects.all()), k=3),
         'title': 'Mailing service',
+        'user_group': str(request.user.groups.values_list('name', flat=True))[10:-1],
 
     }
     return render(request, 'main/home.html', context)
 
 class MailingCreateView(PermissionRequiredMixin, CreateView):
     model = Mailing
-    # fields = '__all__'
     form_class = MailingForm
     template_name = 'main/main_form.html'
     success_url = reverse_lazy('main:home')

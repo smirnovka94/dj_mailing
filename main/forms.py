@@ -34,4 +34,4 @@ class MailingForm(forms.ModelForm):
     class Meta:
         model = Mailing
         exclude = ('user',)
-        # fields = '__all__'
+
