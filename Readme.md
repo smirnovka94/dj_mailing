@@ -23,11 +23,9 @@ pip install -r requirements.txt
 ```
 
 Создаем базу данных в PgAdmin с именем <mailing>
-чтобы указать в нем пароль от Postgres вконце
-```
-localhost:5432:shop_internet:postgres:<password>
-```
 Создаем файл<.env>
+.env.template переименовать на .env
+
 Загрузить базу данных
 ```
 python manage.py loaddata b_data.json

@@ -1,15 +1,11 @@
-from datetime import datetime
-
-from django.conf import settings
 from django.db import models
-
 from clients.models import Clients
 from users.models import User
 
 NULLABLE = {'blank': True, 'null': True}
 
 class FrequencyMailing(models.Model):
-    # Аргументы для периодичности расстылки
+    # Аргументы для периодичности рассылки
     TIMES = [
         ("10S", "раз в 10 секунд"),
         ("Daily", "раз в день,"),

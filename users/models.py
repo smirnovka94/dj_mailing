@@ -6,15 +6,9 @@ from django.db import models
 class User(AbstractUser):
     username = None
 
-    USER_STATUS = [
-        ("Customer", "Пользователь"),
-        ("Manager", "Менеджер"),
-
-    ]
     email = models.EmailField(unique=True, verbose_name='email')
-    name1 = models.CharField(max_length=30, verbose_name='Имя')
-    user_status = models.CharField(max_length=150, choices=USER_STATUS,
-        default='Customer', verbose_name='Cтатус Пользователя')
+    first_name = models.CharField(max_length=30, verbose_name='Имя')
+
     active = models.BooleanField(default=True)
 
     USERNAME_FIELD = 'email'
@@ -22,7 +16,7 @@ class User(AbstractUser):
 
 
     def __str__(self):
-        return f'{self.email}({self.name1})'
+        return f'{self.email}({self.first_name})'
 
     class Meta:
         verbose_name = 'пользователь'

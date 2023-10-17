@@ -8,7 +8,7 @@ class Command(BaseCommand):
         user = User.objects.create(
         # name='kirill',
         email='kirill@sky.pro',
-        name1 = 'Admin',
+        first_name = 'Admin',
         is_superuser = True,
         is_staff = True,
         is_active = True

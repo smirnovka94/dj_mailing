@@ -11,15 +11,15 @@ NULLABLE = {'blank': True, 'null': True}
 class Clients(models.Model):
     # mailings = models.ForeignKey(Mailing)#Список рассылок
     email = models.EmailField(unique=True, verbose_name='email')
-    name1 = models.CharField(max_length=30, verbose_name='Имя')
-    name2 = models.CharField(max_length=30, verbose_name='Фамилия')
-    name3 = models.CharField(max_length=30, verbose_name='Отчество', **NULLABLE)
+    first_name = models.CharField(max_length=30, verbose_name='Имя')
+    last_name = models.CharField(max_length=30, verbose_name='Фамилия')
+    patronymic = models.CharField(max_length=30, verbose_name='Отчество', **NULLABLE)
 
     description = models.TextField(verbose_name='Комментарий', **NULLABLE)
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, verbose_name='пользователь')
     def __str__(self):
-        return f'{self.email} ({self.name1} {self.name2})'
+        return f'{self.email} ({self.first_name} {self.last_name})'
 
     class Meta:
         verbose_name = 'Клиент'

@@ -31,7 +31,7 @@ class ClientUpdateView(UpdateView):
 
 class ClientListView(ListView):
     model = Clients
-    fields = ('email', 'name1', 'name2', 'name3', 'description',)
+    fields = ('email', 'first_name', 'last_name', 'patronymic', 'description',)
 
     def get_queryset(self):
         return super().get_queryset().filter(user=self.request.user)
