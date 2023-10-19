@@ -2,7 +2,9 @@
 
 {% block content %}
     <div class="col-12 mb-5">
+        {% if perms.main.add_mailing %}
         <a class="btn btn-outline-primary" href="{% url 'main:create' %}">Добавить рассылку</a>
+        {% endif %}
         <a class="btn btn-outline-primary" href="{% url 'main:message_create' %}">Добавить шаблон письма</a>
     </div>
     <div class="row text-center">

@@ -11,7 +11,6 @@ class StyleForMixin:
 
 
 class StyleForDateTimeInput(forms.ModelForm):
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['begin_date'].widget = forms.widgets.DateTimeInput(

@@ -1,9 +1,6 @@
-from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
-from pytils.translit import slugify
 from clients.services import get_cache_clients
-
 from clients.forms import ClientsForm
 from clients.models import Clients
 
@@ -16,6 +13,7 @@ class ClientCreateView(CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
+
 
 class ClientUpdateView(UpdateView):
     model = Clients
@@ -31,6 +29,7 @@ class ClientUpdateView(UpdateView):
     def get_success_url(self):
         return reverse('clients:view', args=[self.kwargs.get('pk')])
 
+
 class ClientListView(ListView):
     model = Clients
     fields = ('email', 'first_name', 'last_name', 'patronymic', 'description',)
@@ -44,9 +43,11 @@ class ClientListView(ListView):
         context_data['clients'] = get_cache_clients(self)
         return context_data
 
+
 class ClientDetailView(DetailView):
     model = Clients
     form_class = ClientsForm
+
 
 class ClientDeleteView(DeleteView):
     model = Clients

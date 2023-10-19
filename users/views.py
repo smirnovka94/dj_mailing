@@ -8,18 +8,16 @@ from users.models import User
 import random
 import string
 import copy
+from django.contrib.auth.models import Group
 
 random_key = ''.join(random.choices(string.ascii_letters + string.digits, k=8))
 _key = copy.copy(random_key)
 
-
 class LoginView(BaseLoginView):
     template_name = 'users/login.html'
 
-
 class LogoutView(BaseLogoutView):
     pass
-
 
 class RegisterView(CreateView):
     model = User
@@ -28,16 +26,21 @@ class RegisterView(CreateView):
     template_name = 'users/register.html'
 
     def form_valid(self, form):
+
         self.object = form.save()
+        if 'sky.pro' in self.object.email:
+            groups = Group.objects.filter(name__contains="Менедже")
+            # Проверяет, есть ли хотя бы одна группа
+            if groups.exists():
+                # Присваивает пользователю первую найденную группу
+                self.object.groups.add(groups.first())
 
         return super().form_valid(form)
-
 
 class UserVerificationView(FormView):
     form_class = VerificationForm
     success_url = reverse_lazy('main:home')
     template_name = 'users/user_verification.html'
-
     def post(self, request, *args, **kwargs):
         key_post = request.POST.get('key_post')
         if _key == key_post:
@@ -50,10 +53,8 @@ class UserUpdateView(UpdateView):
     success_url = reverse_lazy("main:home")
     template_name = 'users/profile.html'
     form_class = ChangeForm_User
-
     def get_object(self, queryset=None):
         return self.request.user
-
 def send_new_password(request):
 
     request.user.set_password(_key)
@@ -65,7 +66,6 @@ class UserListView(ListView):
     template_name = 'users/user_list.html'
     fields = "__all__"
     permission_required = 'users.view_user'
-
 
 class UserUpdateViewFromList(UpdateView):
     model = User

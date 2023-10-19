@@ -35,7 +35,6 @@ class Mailing(models.Model):
     ]
 
     name = models.CharField(max_length=150,unique=True, verbose_name='Название рассылки')
-
     frequency = models.ForeignKey(FrequencyMailing,on_delete=models.CASCADE, verbose_name='Периодичность рассылки')
     clients = models.ManyToManyField(Clients, verbose_name='Список получателей')
     message = models.ForeignKey(Message,on_delete=models.CASCADE, verbose_name='Сообщение')
@@ -56,7 +55,6 @@ class Mailing(models.Model):
 
 
 class Logs(models.Model):
-
     data = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=100, verbose_name='статус рассылки')
     answer = models.CharField(max_length=150, verbose_name='ответ почтового сервера, если он был')

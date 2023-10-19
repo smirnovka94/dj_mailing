@@ -1,5 +1,4 @@
 from django.urls import path
-
 from clients.apps import ClientsConfig
 from clients.views import ClientCreateView, ClientListView, ClientDetailView, ClientUpdateView, ClientDeleteView
 

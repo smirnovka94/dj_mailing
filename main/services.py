@@ -53,12 +53,11 @@ def my_job():
     for i, element in enumerate(list_Mailing):
 
         date_time_begin = if_begin(element.begin_date)  # Дата начала рассылки
-        date_time_finish = if_finish(element.close_date)  # Дата окончания рассылк
+        date_time_finish = if_finish(element.close_date)  # Дата окончания рассылок
 
         time_start = datetime.fromisoformat(date_time_begin).timestamp()
         date_time_now = now.timestamp()
         time_finish = datetime.fromisoformat(date_time_finish).timestamp()
-
 
         if time_start <= date_time_now <= time_finish:
 
@@ -68,22 +67,16 @@ def my_job():
             element.begin_date = new_date_time
 
             for client in element.clients.all():
-
                 # отправляем сообщение
-
                 send_mail(
                     subject=f"Тема рассылки{element.name}- {element.message.title}",
                     message=f"Сообщение рассылки {element.message.content}",
                     from_email=settings.EMAIL_HOST_USER,
                     recipient_list=[client.email]  # передача списка email в качестве получателей
                 )
-
                 # Создаем Лог создаем эkземпляр класса Logs() с текущей датой
                 Logs.objects.create(status=element.satus, answer="Отправлено")
             element.save()
-
-
-
         elif date_time_now > time_finish:
             # изменяем статус неактуальной заявки на завершена
             element.satus = "Finish"
