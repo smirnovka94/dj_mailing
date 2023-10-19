@@ -50,7 +50,6 @@ class BlogDetailView(DetailView):
         self.object.save()
         return self.object
 
-
 class BlogDeleteView(DeleteView):
     model = Blog
     success_url = reverse_lazy('blogs:list')

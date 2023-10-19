@@ -1,8 +1,6 @@
 from django.conf import settings
-
 from main.models import Mailing, Logs
 from datetime import datetime, timedelta
-
 from django.core.mail import send_mail
 
 list_Mailing = Mailing.objects.all()

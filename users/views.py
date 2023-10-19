@@ -26,7 +26,6 @@ class RegisterView(CreateView):
     template_name = 'users/register.html'
 
     def form_valid(self, form):
-
         self.object = form.save()
         if 'sky.pro' in self.object.email:
             groups = Group.objects.filter(name__contains="Менедже")
@@ -34,7 +33,6 @@ class RegisterView(CreateView):
             if groups.exists():
                 # Присваивает пользователю первую найденную группу
                 self.object.groups.add(groups.first())
-
         return super().form_valid(form)
 
 class UserVerificationView(FormView):
@@ -56,7 +54,6 @@ class UserUpdateView(UpdateView):
     def get_object(self, queryset=None):
         return self.request.user
 def send_new_password(request):
-
     request.user.set_password(_key)
     request.user.save()
     return redirect(reverse('main:home'))
