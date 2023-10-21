@@ -33,6 +33,10 @@ class RegisterView(CreateView):
             if groups.exists():
                 # Присваивает пользователю первую найденную группу
                 self.object.groups.add(groups.first())
+        else:
+            groups = Group.objects.filter(name__contains="Пользоват")
+            if groups.exists():
+                self.object.groups.add(groups.first())
         return super().form_valid(form)
 
 class UserVerificationView(FormView):

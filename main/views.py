@@ -55,7 +55,11 @@ class MailingListView(ListView):
     fields = ('name', 'frequency', 'satus',)
 
     def get_queryset(self):
-        return super().get_queryset().filter(user=self.request.user)
+        user = self.request.user
+        if user.groups.filter(name__contains="Пользоват").exists():
+            return super().get_queryset().filter(user=user)
+        else:
+            return super().get_queryset()
 
 
 class LogListView(ListView):
